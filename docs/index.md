@@ -6,7 +6,7 @@ hero:
   name: "SMWP 2"
   tagline: 下一代 Super Mario Worker Project，由 INNOVATION LEAP 开发
   image:
-    src: /logo.png
+    src: /mwhammer.png
     alt: SMWP 2 Logo
   actions:
     - theme: brand
