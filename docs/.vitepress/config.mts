@@ -5,11 +5,11 @@ export default defineConfig({
   title: "SMWP 2",
   description: "Next generation of Super Mario Worker Project, created by INNOVATION LEAP",
   head: [
-    ['link', { rel: 'icon', type: 'image/png', href: '/mworker.png' }]
+    ['link', { rel: 'icon', type: 'image/png', href: '/smwp2-logo.png' }]
   ],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
-    logo: '/mworker.png',
+    logo: '/smwp2-logo.png',
     nav: [
       { text: '首页', link: '/' },
       { text: '特性', link: '/features' },
