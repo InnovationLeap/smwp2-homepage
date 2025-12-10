@@ -18,7 +18,7 @@ hero:
 
 features:
   - title: 🚀 新引擎
-    details: 全面转向 Godot Engine 4，带来更多的功能和性能优化。支持 HMR！
+    details: 全面转向 Godot Engine 4，带来更多的功能和性能优化。
   - title: 🔗 兼容 SMWP 1 生态
     details: 保持与 SMWP 1 相同的关卡格式和游戏机制，并基于其进行扩展。
   - title: 👐 开源
