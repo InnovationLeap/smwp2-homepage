@@ -49,7 +49,7 @@ export default defineConfig({
     ],
 
     footer: {
-      copyright: 'Copyright © 2025 <a href="https://inleap.marioforever.net/" target="_blank">INNOVATION LEAP</a>. Mario and its related copyrights belong to Nintendo.'
+      copyright: 'Copyright © 2026 <a href="https://inleap.marioforever.net/" target="_blank">INNOVATION LEAP</a>. Mario and its related copyrights belong to Nintendo.'
     }
   }
 })
