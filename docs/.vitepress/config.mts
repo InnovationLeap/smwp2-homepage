@@ -12,8 +12,8 @@ export default defineConfig({
     logo: '/smwp2-logo.png',
     nav: [
       { text: '首页', link: '/' },
-      { text: '特性', link: '/features' },
-      { text: '下载', link: '/downloads' },
+      //{ text: '特性', link: '/features' },
+      //{ text: '下载', link: '/downloads' },
       { 
         text: '2.0.0-alpha.0',
         items: [

@@ -10,9 +10,6 @@ hero:
     alt: SMWP 2 Logo
   actions:
     - theme: brand
-      text: 下载 SMWP 2
-      link: /downloads
-    - theme: alt
       text: GitHub 仓库
       link: https://github.com/InnovationLeap/super-mario-worker-project-2
 
@@ -29,4 +26,4 @@ features:
 
 SMWP 2（Super Mario Worker Project 2）是由 INNOVATION LEAP 开发的全新 Mario Worker，在尽可能兼容 SMWP 1 关卡体验的基础上，为 SMWP 带来更多的可扩展性。
 
-目前 SMWP 2 仍处于开发阶段，预计将在 2026 年春节前发布第一个 alpha 版本，该版本预计可运行 SMWP 1 的关卡作品。
+SMWP 2 仍处于开发阶段，当前开发版本可运行 SMWP 1 的关卡作品。
