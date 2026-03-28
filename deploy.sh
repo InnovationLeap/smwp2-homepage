@@ -17,7 +17,7 @@ git pull origin $BRANCH
 
 # 安装依赖和构建
 bun install
-bun run docs:build
+bun run build
 
 # 将构建结果复制到目标路径
 echo "**************************** 本地部署 *************************"

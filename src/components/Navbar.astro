@@ -1,0 +1,607 @@
+---
+interface NavItem {
+  label: string;
+  href?: string;
+  target?: string;
+  rel?: string;
+  children?: NavItem[];
+}
+
+const navItems: NavItem[] = [
+  {
+    label: '首页',
+    href: '/',
+  },
+  {
+    label: '2.0.0-alpha.0',
+    children: [
+      { label: '1.7 (LTS)', href: 'https://smwp.marioforever.net/1.7/', target: '_blank', rel: 'noopener noreferrer' },
+      { label: '历史版本', href: 'https://smwp.marioforever.net/downloads/', target: '_blank', rel: 'noopener noreferrer' },
+    ],
+  },
+  {
+    label: '社区',
+    href: 'https://www.marioforever.net/',
+    target: '_blank',
+    rel: 'noopener noreferrer',
+  },
+  {
+    label: 'INL 官网',
+    href: 'https://inleap.marioforever.net/',
+    target: '_blank',
+    rel: 'noopener noreferrer',
+  },
+];
+
+const githubLink = {
+  href: 'https://github.com/InnovationLeap/super-mario-worker-project-2',
+  target: '_blank',
+  rel: 'noopener noreferrer',
+};
+---
+
+<header class="site-header fixed top-0 left-0 right-0 z-50 border-b">
+  <nav class="max-w-7xl mx-auto h-16 px-4 md:px-8 flex items-center justify-between">
+    <a href="/" class="flex items-center space-x-2 hover:opacity-80 transition-opacity">
+      <img src="/images/smwp2-logo.png" alt="SMWP 2 Logo" class="h-8 w-8" />
+      <span class="brand-text text-lg font-semibold">SMWP 2</span>
+    </a>
+
+    <button
+      id="mobile-menu-btn"
+      class="mobile-menu-btn md:hidden h-9 w-9 inline-flex items-center justify-center rounded-md"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <svg class="mobile-menu-icon w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path class="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        <path class="close-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
+    <div class="hidden md:flex text-sm items-center gap-6">
+      {navItems.map((item) => (
+        item.children ? (
+          <div class="relative group">
+            <button class="nav-link transition-colors flex items-center gap-1">
+              {item.label}
+              <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="absolute top-full left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+              <div class="desktop-dropdown rounded-lg shadow-lg border py-2 min-w-[140px]">
+                {item.children.map((child) => (
+                  <a
+                    href={child.href}
+                    target={child.target}
+                    rel={child.rel}
+                    class="desktop-dropdown-link flex items-center gap-1 px-4 py-2 transition-colors"
+                  >
+                    <span>{child.label}</span>
+                    {child.target === '_blank' && <span class="external-link-indicator" aria-hidden="true">↗</span>}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        ) : (
+          <a
+            href={item.href}
+            target={item.target}
+            rel={item.rel}
+            class="nav-link inline-flex items-center gap-1 transition-colors"
+          >
+            <span>{item.label}</span>
+            {item.target === '_blank' && <span class="external-link-indicator" aria-hidden="true">↗</span>}
+          </a>
+        )
+      ))}
+    </div>
+
+    <div class="hidden md:flex items-center gap-3">
+      <button
+        type="button"
+        data-appearance-toggle
+        class="appearance-toggle-btn appearance-switch h-6 w-11 rounded-full inline-flex items-center transition-colors"
+      >
+        <span class="appearance-switch-thumb inline-flex items-center justify-center rounded-full">
+          <svg class="sun-icon w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 3v2.2M12 18.8V21M5.64 5.64l1.56 1.56M16.8 16.8l1.56 1.56M3 12h2.2M18.8 12H21M5.64 18.36l1.56-1.56M16.8 7.2l1.56-1.56M12 16a4 4 0 100-8 4 4 0 000 8z" />
+          </svg>
+          <svg class="moon-icon w-3 h-3 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M20.35 13.04A8.5 8.5 0 0110.96 3.65a8.5 8.5 0 1010.39 9.39z" />
+          </svg>
+        </span>
+      </button>
+      <a
+        href={githubLink.href}
+        target={githubLink.target}
+        rel={githubLink.rel}
+        class="icon-link h-9 w-9 inline-flex items-center justify-center rounded-lg transition-colors"
+        aria-label="GitHub"
+      >
+        <i class="fa-brands fa-github text-lg"></i>
+      </a>
+    </div>
+  </nav>
+
+  <div id="mobile-menu" class="mobile-menu md:hidden hidden fixed inset-0 top-16 z-40" aria-hidden="true">
+    <div class="mobile-menu-panel h-[calc(100dvh-4rem)] w-full mx-auto px-4 pb-6 pt-4 overflow-y-auto">
+      <div class="space-y-1.5">
+        {navItems.map((item) => (
+          item.children ? (
+            <div class="mobile-dropdown">
+              <button
+                class="mobile-dropdown-btn mobile-menu-link w-full text-left transition-colors py-3 px-4 flex items-center justify-between text-sm rounded-lg"
+                data-dropdown={item.label}
+                aria-expanded="false"
+              >
+                <span>{item.label}</span>
+                <svg class="mobile-dropdown-chevron w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <div class="mobile-dropdown-content pl-2 pr-2 space-y-1">
+                {item.children.map((child) => (
+                  <a
+                    href={child.href}
+                    target={child.target}
+                    rel={child.rel}
+                    class="mobile-menu-child flex items-center gap-1 py-2.5 px-4 text-sm rounded-md transition-colors"
+                  >
+                    <span>{child.label}</span>
+                    {child.target === '_blank' && <span class="external-link-indicator" aria-hidden="true">↗</span>}
+                  </a>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <a
+              href={item.href}
+              target={item.target}
+              rel={item.rel}
+              class="mobile-menu-link flex items-center gap-1 py-3 px-4 text-sm transition-colors rounded-lg"
+            >
+              <span>{item.label}</span>
+              {item.target === '_blank' && <span class="external-link-indicator" aria-hidden="true">↗</span>}
+            </a>
+          )
+        ))}
+      </div>
+      <div class="mobile-menu-extra mt-4 px-1 pt-5">
+        <div class="mobile-extra-row flex items-center justify-between rounded-lg px-4 py-3">
+          <span class="text-sm font-medium">配色</span>
+          <button
+            type="button"
+            data-appearance-toggle
+            class="appearance-toggle-btn appearance-switch mobile-appearance-switch h-6 w-11 rounded-full inline-flex items-center transition-colors"
+          >
+            <span class="appearance-switch-thumb inline-flex items-center justify-center rounded-full">
+              <svg class="sun-icon w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 3v2.2M12 18.8V21M5.64 5.64l1.56 1.56M16.8 16.8l1.56 1.56M3 12h2.2M18.8 12H21M5.64 18.36l1.56-1.56M16.8 7.2l1.56-1.56M12 16a4 4 0 100-8 4 4 0 000 8z" />
+              </svg>
+              <svg class="moon-icon w-3 h-3 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M20.35 13.04A8.5 8.5 0 0110.96 3.65a8.5 8.5 0 1010.39 9.39z" />
+              </svg>
+            </span>
+            <span class="sr-only">切换配色</span>
+          </button>
+        </div>
+        <a
+          href={githubLink.href}
+          target={githubLink.target}
+          rel={githubLink.rel}
+          class="mobile-github mt-7 w-full inline-flex items-center justify-center"
+          aria-label="GitHub"
+        >
+          <i class="fa-brands fa-github text-2xl"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const siteHeader = document.querySelector('.site-header');
+  const appearanceToggles = document.querySelectorAll('[data-appearance-toggle]');
+  const MOBILE_MENU_ANIMATION_DURATION = 220;
+  let hideMenuTimer: number | null = null;
+
+  const getPreferredTheme = () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light' || savedTheme === 'dark') {
+      return savedTheme;
+    }
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  };
+
+  const setTheme = (theme) => {
+    const isDark = theme === 'dark';
+    document.documentElement.classList.toggle('dark', isDark);
+    localStorage.setItem('theme', theme);
+    appearanceToggles.forEach((toggle) => {
+      const sunIcon = toggle.querySelector('.sun-icon');
+      const moonIcon = toggle.querySelector('.moon-icon');
+      toggle.classList.toggle('is-dark', isDark);
+      sunIcon?.classList.toggle('hidden', isDark);
+      moonIcon?.classList.toggle('hidden', !isDark);
+      toggle.setAttribute('aria-label', `Switch to ${isDark ? 'light' : 'dark'} mode`);
+    });
+  };
+
+  const setMobileMenuExpanded = (expanded) => {
+    mobileMenuBtn?.classList.toggle('is-active', expanded);
+    mobileMenuBtn?.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+    mobileMenu?.setAttribute('aria-hidden', expanded ? 'false' : 'true');
+  };
+
+  const openMobileMenu = () => {
+    if (!mobileMenu || !mobileMenuBtn || !mobileMenu.classList.contains('hidden')) {
+      return;
+    }
+    if (hideMenuTimer) {
+      window.clearTimeout(hideMenuTimer);
+      hideMenuTimer = null;
+    }
+    mobileMenu.classList.remove('hidden');
+    requestAnimationFrame(() => {
+      mobileMenu.classList.add('is-open');
+    });
+    setMobileMenuExpanded(true);
+    document.body.style.overflow = 'hidden';
+    siteHeader?.classList.add('menu-open');
+  };
+
+  const closeMobileMenu = () => {
+    if (!mobileMenu || !mobileMenuBtn || mobileMenu.classList.contains('hidden')) {
+      return;
+    }
+    mobileMenu.classList.remove('is-open');
+    setMobileMenuExpanded(false);
+    document.body.style.overflow = '';
+    siteHeader?.classList.remove('menu-open');
+    hideMenuTimer = window.setTimeout(() => {
+      mobileMenu.classList.add('hidden');
+      hideMenuTimer = null;
+    }, MOBILE_MENU_ANIMATION_DURATION);
+  };
+
+  const updateHeaderTransparency = () => {
+    const isAtTop = window.scrollY <= 0;
+    const isMenuOpen = mobileMenu?.classList.contains('is-open');
+    siteHeader?.classList.toggle('is-transparent', isAtTop && !isMenuOpen);
+  };
+
+  mobileMenuBtn?.addEventListener('click', () => {
+    if (!mobileMenu) return;
+    if (mobileMenu.classList.contains('hidden')) {
+      openMobileMenu();
+      return;
+    }
+    closeMobileMenu();
+  });
+
+  appearanceToggles.forEach((toggle) => {
+    toggle.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.contains('dark');
+      setTheme(isDark ? 'light' : 'dark');
+    });
+  });
+
+  document.querySelectorAll('.mobile-dropdown-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const dropdown = btn.nextElementSibling;
+      const chevron = btn.querySelector('.mobile-dropdown-chevron');
+      const willExpand = !dropdown?.classList.contains('is-open');
+      dropdown?.classList.toggle('is-open', willExpand);
+      chevron?.classList.toggle('rotate-180', willExpand);
+      btn.setAttribute('aria-expanded', willExpand ? 'true' : 'false');
+    });
+  });
+
+  mobileMenu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', closeMobileMenu);
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 768) {
+      closeMobileMenu();
+    }
+  });
+
+  window.addEventListener('scroll', updateHeaderTransparency, { passive: true });
+
+  setTheme(getPreferredTheme());
+  updateHeaderTransparency();
+</script>
+
+<style is:global>
+  .site-header {
+    background: color-mix(in srgb, #ffffff 82%, transparent);
+    backdrop-filter: blur(14px);
+    border-color: #e5e7eb;
+    transition: background 0.25s ease, border-color 0.25s ease;
+  }
+
+  .site-header.is-transparent {
+    background: transparent;
+    backdrop-filter: none;
+    border-color: transparent;
+  }
+
+  .site-header.menu-open {
+    background: #ffffff;
+    backdrop-filter: none;
+    border-color: #e5e7eb;
+    transition: none;
+  }
+
+  .brand-text,
+  .nav-link,
+  .mobile-menu-link,
+  .mobile-menu-btn,
+  .mobile-github,
+  .icon-link {
+    color: #374151;
+  }
+
+  .desktop-dropdown,
+  .mobile-menu-panel,
+  .mobile-extra-row,
+  .appearance-toggle-btn {
+    background-color: #ffffff;
+    border-color: #e5e7eb;
+  }
+
+  .desktop-dropdown {
+    border-width: 1px;
+  }
+
+  .desktop-dropdown-link,
+  .mobile-menu-child {
+    color: #4b5563;
+  }
+
+  .external-link-indicator {
+    font-size: 0.75rem;
+    line-height: 1;
+    opacity: 0.8;
+  }
+
+  .desktop-dropdown-link:hover,
+  .mobile-menu-link:hover,
+  .mobile-menu-child:hover,
+  .icon-link:hover,
+  .mobile-menu-btn:hover {
+    background-color: #f3f4f6;
+    color: #111827;
+  }
+
+  .mobile-menu {
+    background: color-mix(in srgb, #ffffff 82%, transparent);
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.22s ease, background 0.22s ease;
+  }
+
+  .mobile-menu.is-open {
+    opacity: 1;
+    pointer-events: auto;
+    background: #ffffff;
+    backdrop-filter: none;
+  }
+
+  .mobile-menu-panel {
+    background: #ffffff;
+    box-shadow: 0 24px 55px -25px rgba(17, 24, 39, 0.5);
+    opacity: 0;
+    transition: transform 0.22s ease, opacity 0.22s ease;
+  }
+
+  .mobile-menu.is-open .mobile-menu-panel {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  .mobile-dropdown-content {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.26s ease, opacity 0.2s ease, padding 0.26s ease;
+  }
+
+  .mobile-dropdown-content.is-open {
+    max-height: 16rem;
+    opacity: 1;
+    padding-top: 0.25rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .mobile-menu-btn {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mobile-menu-btn .menu-icon,
+  .mobile-menu-btn .close-icon {
+    transform-origin: center;
+    transition: transform 0.22s ease, opacity 0.22s ease;
+  }
+
+  .mobile-menu-btn .close-icon {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.65);
+  }
+
+  .mobile-menu-btn.is-active .menu-icon {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.65);
+  }
+
+  .mobile-menu-btn.is-active .close-icon {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+
+  .mobile-menu-btn.is-active {
+    background-color: #f3f4f6;
+  }
+
+  .mobile-menu-extra {
+    border-top: 0;
+  }
+
+  .mobile-extra-row {
+    background-color: #f9fafb;
+  }
+
+  .mobile-appearance-switch {
+    border: 0;
+    transition-property: none;
+    transition-duration: 0s;
+  }
+
+  .mobile-appearance-switch .appearance-switch-thumb {
+    transition: transform 0.22s ease;
+  }
+
+  .appearance-switch {
+    position: relative;
+    padding: 0.125rem;
+    background-color: #f3f4f6;
+    border: 1px solid #e5e7eb;
+  }
+
+  .appearance-switch-thumb {
+    width: 1rem;
+    height: 1rem;
+    background-color: #ffffff;
+    color: #6b7280;
+    transform: translateX(0);
+    transition: transform 0.22s ease, color 0.22s ease, background-color 0.22s ease;
+    box-shadow: 0 1px 3px rgba(17, 24, 39, 0.24);
+  }
+
+  .appearance-switch.is-dark {
+    background-color: #334155;
+    border-color: #475569;
+  }
+
+  .appearance-switch.is-dark .appearance-switch-thumb {
+    transform: translateX(1.375rem);
+    color: #cbd5e1;
+    background-color: #0f172a;
+  }
+
+  .appearance-switch:hover {
+    background-color: #e5e7eb;
+  }
+
+  .appearance-switch.is-dark:hover {
+    background-color: #475569;
+  }
+
+  html.dark .site-header {
+    background: color-mix(in srgb, #111827 84%, transparent);
+    border-color: #1f2937;
+  }
+
+  html.dark .site-header.is-transparent {
+    background: transparent;
+    border-color: transparent;
+  }
+
+  html.dark .site-header.menu-open {
+    background: #030712;
+    border-color: #1f2937;
+    transition: none;
+  }
+
+  html.dark .brand-text,
+  html.dark .nav-link,
+  html.dark .mobile-menu-link,
+  html.dark .mobile-menu-btn,
+  html.dark .mobile-github,
+  html.dark .icon-link,
+  html.dark .appearance-toggle-btn {
+    color: #e5e7eb;
+  }
+
+  html.dark .desktop-dropdown,
+  html.dark .mobile-extra-row,
+  html.dark .appearance-toggle-btn {
+    background-color: #111827;
+    border-color: #1f2937;
+  }
+
+  html.dark .desktop-dropdown-link,
+  html.dark .mobile-menu-child {
+    color: #d1d5db;
+  }
+
+  html.dark .desktop-dropdown-link:hover,
+  html.dark .mobile-menu-link:hover,
+  html.dark .mobile-menu-child:hover,
+  html.dark .icon-link:hover,
+  html.dark .mobile-menu-btn:hover {
+    background-color: #1f2937;
+    color: #f9fafb;
+  }
+
+  html.dark .mobile-menu {
+    background: color-mix(in srgb, #030712 84%, transparent);
+  }
+
+  html.dark .mobile-menu.is-open {
+    background: #030712;
+  }
+
+  html.dark .mobile-menu.is-open .mobile-menu-panel {
+    box-shadow: 0 24px 55px -25px rgba(0, 0, 0, 0.75);
+  }
+
+  html.dark .mobile-menu-panel {
+    background-color: #030712;
+    border-color: #1f2937;
+  }
+
+  html.dark .mobile-menu-extra {
+    border-color: #1f2937;
+  }
+
+  html.dark .mobile-extra-row {
+    background-color: #1f2937;
+  }
+
+  html.dark .mobile-appearance-switch {
+    border-color: transparent;
+  }
+
+  html.dark .appearance-switch {
+    background-color: #1f2937;
+    border-color: #334155;
+  }
+
+  html.dark .appearance-switch-thumb {
+    background-color: #ffffff;
+    color: #cbd5e1;
+  }
+
+  html.dark .appearance-switch.is-dark .appearance-switch-thumb {
+    background-color: #0f172a;
+    color: #cbd5e1;
+  }
+
+  html.dark .appearance-switch:hover {
+    background-color: #273244;
+  }
+
+  html.dark .mobile-menu-btn.is-active {
+    background-color: #1f2937;
+  }
+</style>

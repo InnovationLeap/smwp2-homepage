@@ -4,3 +4,5 @@ dist
 .vscode
 .trae/*
 .editorconfig
+.astro
+AGENTS.md

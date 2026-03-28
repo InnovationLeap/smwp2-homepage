@@ -1,0 +1,111 @@
+---
+import { getEntry, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const entry = await getEntry('pages', 'index');
+
+if (!entry) {
+  throw new Error('Index page not found');
+}
+
+const { Content } = await render(entry);
+---
+
+<BaseLayout title={entry.data.title}>
+  <Navbar />
+
+  <main class="flex-1">
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-12">
+      <div class="max-w-7xl mx-auto px-8 lg:px-16">
+        <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
+          <!-- Text Content (Left on large screens) -->
+          <div class="flex-1 text-center lg:text-left">
+            <!-- Title with Gradient -->
+            <h1 class="text-5xl lg:text-6xl font-bold mb-4 inline-block" style="color: transparent; background: -webkit-linear-gradient(120deg, #3fbbfe 30%, #a541ff); background-clip: text; -webkit-background-clip: text;">
+              SMWP 2
+            </h1>
+
+            <p class="text-xl lg:text-2xl font-medium text-gray-600 dark:text-gray-300 mb-8 max-w-2xl leading-normal">
+              下一代 Super Mario Worker Project，由 INNOVATION LEAP 开发
+            </p>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
+              <a
+                href="https://github.com/InnovationLeap/super-mario-worker-project-2"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold !text-white hover:!text-white active:!text-white visited:!text-white bg-gradient-to-l from-blue-500 to-purple-600 rounded-full hover:from-blue-600 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl"
+              >
+                GitHub 仓库
+              </a>
+              <!-- <a
+                href="/downloads"
+                class="inline-flex items-center justify-center px-6 py-3 text-sm font-semibold text-gray-700 dark:text-gray-100 bg-gray-100 dark:bg-gray-800 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200"
+              >
+                下载
+              </a> -->
+            </div>
+          </div>
+
+          <!-- Logo (Right on large screens, top on mobile) -->
+          <div class="flex-1 flex justify-center items-center order-first lg:order-last lg:-mt-8">
+            <div class="relative w-56 h-56">
+              <div class="absolute -inset-8" style="background-image: linear-gradient(-45deg, #3fbbfe 50%, #a541ff 50%); filter: blur(64px); border-radius: 9999px;"></div>
+              <img
+                src="/images/mwhammer.png"
+                alt="SMWP 2 Logo"
+                class="w-full h-full object-contain relative z-10"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="pb-12">
+      <div class="max-w-7xl mx-auto px-8 lg:px-16">
+        <div class="grid md:grid-cols-3 gap-4">
+          <!-- Feature 1 -->
+          <div class="rounded-2xl p-6 border border-gray-100 bg-white/90 shadow-lg shadow-gray-900/5 transition-transform duration-300 dark:border-gray-700 dark:bg-gray-900/70 dark:shadow-black/30">
+            <h3 class="mb-3 font-bold text-gray-900 dark:text-gray-100">🚀 新引擎</h3>
+            <p class="text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+              全面转向 Godot Engine 4，带来更多的功能和性能优化。
+            </p>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="rounded-2xl p-6 border border-gray-100 bg-white/90 shadow-lg shadow-gray-900/5 transition-transform duration-300 dark:border-gray-700 dark:bg-gray-900/70 dark:shadow-black/30">
+            <h3 class="mb-3 font-bold text-gray-900 dark:text-gray-100">🔗 兼容 SMWP 1 生态</h3>
+            <p class="text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+              保持与 SMWP 1 相同的关卡格式和游戏机制，并基于其进行扩展。
+            </p>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="rounded-2xl p-6 border border-gray-100 bg-white/90 shadow-lg shadow-gray-900/5 transition-transform duration-300 dark:border-gray-700 dark:bg-gray-900/70 dark:shadow-black/30">
+            <h3 class="mb-3 font-bold text-gray-900 dark:text-gray-100">👐 开源</h3>
+            <p class="text-sm leading-relaxed text-gray-600 dark:text-gray-300">
+              SMWP 2 将全面开源，允许玩家和关卡创作者自由修改定制。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Introduction Section -->
+    <section class="pb-12 border-t border-gray-200 dark:border-gray-800">
+      <div class="max-w-7xl mx-auto px-8 lg:px-16">
+        <article class="prose mx-auto max-w-none prose-headings:font-bold prose-headings:text-gray-900 prose-h2:mb-4 prose-h2:mt-8 prose-h2:text-2xl prose-p:leading-relaxed prose-p:text-gray-600 dark:prose-invert dark:prose-headings:text-gray-100 dark:prose-p:text-gray-300">
+          <Content />
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
