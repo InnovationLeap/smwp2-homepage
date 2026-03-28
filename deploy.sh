@@ -21,6 +21,6 @@ bun run build
 
 # 将构建结果复制到目标路径
 echo "**************************** 本地部署 *************************"
-rsync -av --checksum --delete docs/.vitepress/dist/ /data/wwwroot/smwp2.marioforever.net/
+rsync -av --checksum --delete dist/ /data/wwwroot/smwp2.marioforever.net/
 chown -R www-data:www-data /data/wwwroot/smwp2.marioforever.net/
 echo "**************************** 部署成功 *************************"
