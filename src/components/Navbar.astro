@@ -1,6 +1,7 @@
 ---
 interface NavItem {
-  label: string;
+  labelZh: string;
+  labelEn: string;
   href?: string;
   target?: string;
   rel?: string;
@@ -9,24 +10,28 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   {
-    label: '首页',
+    labelZh: '首页',
+    labelEn: 'Home',
     href: '/',
   },
   {
-    label: '2.0.0-alpha.0',
+    labelZh: '2.0.0-alpha.0',
+    labelEn: '2.0.0-alpha.0',
     children: [
-      { label: '1.7 (LTS)', href: 'https://smwp.marioforever.net/1.7/', target: '_blank', rel: 'noopener noreferrer' },
-      { label: '历史版本', href: 'https://smwp.marioforever.net/downloads/', target: '_blank', rel: 'noopener noreferrer' },
+      { labelZh: '1.7 (LTS)', labelEn: '1.7 (LTS)', href: 'https://smwp.marioforever.net/1.7/', target: '_blank', rel: 'noopener noreferrer' },
+      { labelZh: '历史版本', labelEn: 'Version History', href: 'https://smwp.marioforever.net/downloads/', target: '_blank', rel: 'noopener noreferrer' },
     ],
   },
   {
-    label: '社区',
+    labelZh: '社区',
+    labelEn: 'Community',
     href: 'https://www.marioforever.net/',
     target: '_blank',
     rel: 'noopener noreferrer',
   },
   {
-    label: 'INL 官网',
+    labelZh: 'INL 官网',
+    labelEn: 'INNOVATION LEAP',
     href: 'https://inleap.marioforever.net/',
     target: '_blank',
     rel: 'noopener noreferrer',
@@ -65,7 +70,8 @@ const githubLink = {
         item.children ? (
           <div class="relative group">
             <button class="nav-link transition-colors flex items-center gap-1">
-              {item.label}
+              <span data-lang="zh">{item.labelZh}</span>
+              <span data-lang="en">{item.labelEn}</span>
               <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
               </svg>
@@ -79,7 +85,8 @@ const githubLink = {
                     rel={child.rel}
                     class="desktop-dropdown-link flex items-center gap-1 px-4 py-2 transition-colors"
                   >
-                    <span>{child.label}</span>
+                    <span data-lang="zh">{child.labelZh}</span>
+                    <span data-lang="en">{child.labelEn}</span>
                     {child.target === '_blank' && <span class="external-link-indicator" aria-hidden="true">↗</span>}
                   </a>
                 ))}
@@ -93,14 +100,15 @@ const githubLink = {
             rel={item.rel}
             class="nav-link inline-flex items-center gap-1 transition-colors"
           >
-            <span>{item.label}</span>
+            <span data-lang="zh">{item.labelZh}</span>
+            <span data-lang="en">{item.labelEn}</span>
             {item.target === '_blank' && <span class="external-link-indicator" aria-hidden="true">↗</span>}
           </a>
         )
       ))}
     </div>
 
-    <div class="hidden md:flex items-center gap-3">
+    <div class="hidden md:flex text-sm items-center gap-3">
       <button
         type="button"
         data-appearance-toggle
@@ -115,6 +123,30 @@ const githubLink = {
           </svg>
         </span>
       </button>
+      <div class="relative group">
+        <button
+          class="icon-link h-9 w-9 inline-flex items-center justify-center rounded-lg transition-colors"
+          aria-label="Switch language"
+        >
+          <i class="fa-solid fa-language text-lg"></i>
+        </button>
+        <div class="absolute top-full right-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+          <div class="desktop-dropdown rounded-lg shadow-lg border py-2 min-w-[140px]">
+            <button
+              data-lang-switch="zh"
+              class="desktop-dropdown-link flex items-center gap-2 px-4 py-2 transition-colors w-full text-left"
+            >
+              <span>简体中文</span>
+            </button>
+            <button
+              data-lang-switch="en"
+              class="desktop-dropdown-link flex items-center gap-2 px-4 py-2 transition-colors w-full text-left"
+            >
+              <span>English</span>
+            </button>
+          </div>
+        </div>
+      </div>
       <a
         href={githubLink.href}
         target={githubLink.target}
@@ -135,10 +167,12 @@ const githubLink = {
             <div class="mobile-dropdown">
               <button
                 class="mobile-dropdown-btn mobile-menu-link w-full text-left transition-colors py-3 px-4 flex items-center justify-between text-sm rounded-lg"
-                data-dropdown={item.label}
                 aria-expanded="false"
               >
-                <span>{item.label}</span>
+                <span>
+                  <span data-lang="zh">{item.labelZh}</span>
+                  <span data-lang="en">{item.labelEn}</span>
+                </span>
                 <svg class="mobile-dropdown-chevron w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                 </svg>
@@ -151,7 +185,8 @@ const githubLink = {
                     rel={child.rel}
                     class="mobile-menu-child flex items-center gap-1 py-2.5 px-4 text-sm rounded-md transition-colors"
                   >
-                    <span>{child.label}</span>
+                    <span data-lang="zh">{child.labelZh}</span>
+                    <span data-lang="en">{child.labelEn}</span>
                     {child.target === '_blank' && <span class="external-link-indicator" aria-hidden="true">↗</span>}
                   </a>
                 ))}
@@ -164,7 +199,8 @@ const githubLink = {
               rel={item.rel}
               class="mobile-menu-link flex items-center gap-1 py-3 px-4 text-sm transition-colors rounded-lg"
             >
-              <span>{item.label}</span>
+              <span data-lang="zh">{item.labelZh}</span>
+              <span data-lang="en">{item.labelEn}</span>
               {item.target === '_blank' && <span class="external-link-indicator" aria-hidden="true">↗</span>}
             </a>
           )
@@ -172,7 +208,10 @@ const githubLink = {
       </div>
       <div class="mobile-menu-extra mt-4 px-1 pt-5">
         <div class="mobile-extra-row flex items-center justify-between rounded-lg px-4 py-3">
-          <span class="text-sm font-medium">配色</span>
+          <span class="text-sm font-medium">
+            <span data-lang="zh">配色</span>
+            <span data-lang="en">Theme</span>
+          </span>
           <button
             type="button"
             data-appearance-toggle
@@ -186,14 +225,35 @@ const githubLink = {
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M20.35 13.04A8.5 8.5 0 0110.96 3.65a8.5 8.5 0 1010.39 9.39z" />
               </svg>
             </span>
-            <span class="sr-only">切换配色</span>
           </button>
+        </div>
+        <div class="mobile-lang-section mt-3">
+          <div class="mobile-extra-row rounded-lg px-4 py-3">
+            <div class="text-sm font-medium mb-2">
+              <span data-lang="zh">语言</span>
+              <span data-lang="en">Language</span>
+            </div>
+            <div class="flex gap-2">
+              <button
+                data-lang-switch="zh"
+                class="mobile-lang-btn flex-1 py-2 px-3 text-sm rounded-md transition-colors"
+              >
+                简体中文
+              </button>
+              <button
+                data-lang-switch="en"
+                class="mobile-lang-btn flex-1 py-2 px-3 text-sm rounded-md transition-colors"
+              >
+                English
+              </button>
+            </div>
+          </div>
         </div>
         <a
           href={githubLink.href}
           target={githubLink.target}
           rel={githubLink.rel}
-          class="mobile-github mt-7 w-full inline-flex items-center justify-center"
+          class="mobile-github mt-4 w-full inline-flex items-center justify-center"
           aria-label="GitHub"
         >
           <i class="fa-brands fa-github text-2xl"></i>
@@ -208,6 +268,7 @@ const githubLink = {
   const mobileMenu = document.getElementById('mobile-menu');
   const siteHeader = document.querySelector('.site-header');
   const appearanceToggles = document.querySelectorAll('[data-appearance-toggle]');
+  const langSwitches = document.querySelectorAll('[data-lang-switch]');
   const MOBILE_MENU_ANIMATION_DURATION = 220;
   let hideMenuTimer: number | null = null;
 
@@ -219,7 +280,7 @@ const githubLink = {
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   };
 
-  const setTheme = (theme) => {
+  const setTheme = (theme: string) => {
     const isDark = theme === 'dark';
     document.documentElement.classList.toggle('dark', isDark);
     localStorage.setItem('theme', theme);
@@ -233,7 +294,28 @@ const githubLink = {
     });
   };
 
-  const setMobileMenuExpanded = (expanded) => {
+  const updateLanguage = (lang: string) => {
+    document.documentElement.setAttribute('data-lang', lang);
+    localStorage.setItem('lang', lang);
+
+    document.querySelectorAll('[data-lang]').forEach((el) => {
+      const elementLang = el.getAttribute('data-lang');
+      if (elementLang === lang) {
+        el.classList.remove('hidden');
+      } else {
+        el.classList.add('hidden');
+      }
+    });
+
+    langSwitches.forEach((btn) => {
+      const btnLang = btn.getAttribute('data-lang-switch');
+      btn.classList.toggle('is-active', btnLang === lang);
+    });
+
+    window.dispatchEvent(new CustomEvent('language-change', { detail: { lang } }));
+  };
+
+  const setMobileMenuExpanded = (expanded: boolean) => {
     mobileMenuBtn?.classList.toggle('is-active', expanded);
     mobileMenuBtn?.setAttribute('aria-expanded', expanded ? 'true' : 'false');
     mobileMenu?.setAttribute('aria-hidden', expanded ? 'false' : 'true');
@@ -292,6 +374,15 @@ const githubLink = {
     });
   });
 
+  langSwitches.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const lang = btn.getAttribute('data-lang-switch');
+      if (lang) {
+        updateLanguage(lang);
+      }
+    });
+  });
+
   document.querySelectorAll('.mobile-dropdown-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
       const dropdown = btn.nextElementSibling;
@@ -315,8 +406,17 @@ const githubLink = {
 
   window.addEventListener('scroll', updateHeaderTransparency, { passive: true });
 
+  const getDefaultLang = () => navigator.language.startsWith('zh') ? 'zh' : 'en';
+
   setTheme(getPreferredTheme());
+  const savedLang = localStorage.getItem('lang') || getDefaultLang();
+  updateLanguage(savedLang);
   updateHeaderTransparency();
+
+  document.addEventListener('astro:page-load', () => {
+    const currentLang = localStorage.getItem('lang') || getDefaultLang();
+    updateLanguage(currentLang);
+  });
 </script>
 
 <style is:global>
@@ -362,7 +462,8 @@ const githubLink = {
   }
 
   .desktop-dropdown-link,
-  .mobile-menu-child {
+  .mobile-menu-child,
+  .mobile-lang-btn {
     color: #4b5563;
   }
 
@@ -376,9 +477,16 @@ const githubLink = {
   .mobile-menu-link:hover,
   .mobile-menu-child:hover,
   .icon-link:hover,
-  .mobile-menu-btn:hover {
+  .mobile-menu-btn:hover,
+  .mobile-lang-btn:hover {
     background-color: #f3f4f6;
     color: #111827;
+  }
+
+  .desktop-dropdown-link.is-active,
+  .mobile-lang-btn.is-active {
+    background-color: #e0e7ff;
+    color: #3730a3;
   }
 
   .mobile-menu {
@@ -540,7 +648,8 @@ const githubLink = {
   }
 
   html.dark .desktop-dropdown-link,
-  html.dark .mobile-menu-child {
+  html.dark .mobile-menu-child,
+  html.dark .mobile-lang-btn {
     color: #d1d5db;
   }
 
@@ -548,9 +657,16 @@ const githubLink = {
   html.dark .mobile-menu-link:hover,
   html.dark .mobile-menu-child:hover,
   html.dark .icon-link:hover,
-  html.dark .mobile-menu-btn:hover {
+  html.dark .mobile-menu-btn:hover,
+  html.dark .mobile-lang-btn:hover {
     background-color: #1f2937;
     color: #f9fafb;
+  }
+
+  html.dark .desktop-dropdown-link.is-active,
+  html.dark .mobile-lang-btn.is-active {
+    background-color: #312e81;
+    color: #a5b4fc;
   }
 
   html.dark .mobile-menu {

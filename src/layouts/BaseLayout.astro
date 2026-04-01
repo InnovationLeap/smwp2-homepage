@@ -1,10 +1,12 @@
 ---
 interface Props {
-  title: string;
-  description?: string;
+  titleZh: string;
+  titleEn: string;
+  descriptionZh?: string;
+  descriptionEn?: string;
 }
 
-const { title, description = "SMWP 2 - 下一代 Super Mario Worker Project" } = Astro.props;
+const { titleZh, titleEn, descriptionZh, descriptionEn } = Astro.props;
 
 import '../styles/global.css';
 ---
@@ -14,7 +16,7 @@ import '../styles/global.css';
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description} />
+    <meta name="description" content={descriptionZh} />
     <link rel="icon" type="image/png" href="/images/smwp2-logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -24,11 +26,48 @@ import '../styles/global.css';
         const savedTheme = localStorage.getItem('theme');
         const isDark = savedTheme ? savedTheme === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
         document.documentElement.classList.toggle('dark', isDark);
+
+        const savedLang = localStorage.getItem('lang') || (navigator.language.startsWith('zh') ? 'zh' : 'en');
+        document.documentElement.setAttribute('data-lang', savedLang);
       })();
     </script>
-    <title>{title}</title>
+    <title>{titleZh}</title>
   </head>
-  <body class="min-h-screen font-sans flex flex-col">
+  <body class="min-h-screen font-sans flex flex-col" data-title-zh={titleZh} data-title-en={titleEn} data-desc-zh={descriptionZh} data-desc-en={descriptionEn}>
     <slot />
   </body>
 </html>
+
+<script>
+  const getDefaultLang = () => navigator.language.startsWith('zh') ? 'zh' : 'en';
+
+  const updatePageTitleAndDesc = (lang: string) => {
+    const body = document.body;
+    const titleZh = body.getAttribute('data-title-zh');
+    const titleEn = body.getAttribute('data-title-en');
+    const descZh = body.getAttribute('data-desc-zh');
+    const descEn = body.getAttribute('data-desc-en');
+
+    if (lang === 'en') {
+      if (titleEn) document.title = titleEn;
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc && descEn) metaDesc.setAttribute('content', descEn);
+    } else {
+      if (titleZh) document.title = titleZh;
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc && descZh) metaDesc.setAttribute('content', descZh);
+    }
+  };
+
+  const savedLang = localStorage.getItem('lang') || getDefaultLang();
+  updatePageTitleAndDesc(savedLang);
+
+  window.addEventListener('language-change', ((e: CustomEvent) => {
+    updatePageTitleAndDesc(e.detail.lang);
+  }) as EventListener);
+
+  document.addEventListener('astro:page-load', () => {
+    const currentLang = localStorage.getItem('lang') || getDefaultLang();
+    updatePageTitleAndDesc(currentLang);
+  });
+</script>
