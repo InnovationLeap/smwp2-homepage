@@ -1,9 +1,9 @@
 {
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.19",
-    "@tailwindcss/vite": "^4.2.2",
-    "astro": "^6.1.4",
-    "tailwindcss": "^4.2.2"
+    "@tailwindcss/vite": "^4.2.4",
+    "astro": "^6.1.9",
+    "tailwindcss": "^4.2.4"
   },
   "scripts": {
     "dev": "astro dev",
@@ -12,8 +12,8 @@
     "deploy": "bash deploy.sh"
   },
   "dependencies": {
-    "@astrojs/mdx": "^5.0.3",
+    "@astrojs/mdx": "^5.0.4",
     "@fortawesome/fontawesome-free": "^7.2.0",
-    "typescript": "^6.0.2"
+    "typescript": "^6.0.3"
   }
 }
